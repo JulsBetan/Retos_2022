@@ -22,7 +22,7 @@ class PokemonType(Enum):
     water = "Agua"
     fire = "Fuego"
     grass = "Planta"
-    electric = "Electrico" 
+    electric = "Electrico"
 
 class PokemonChart:
     def __init__(self, effective: PokemonType, notEffective: PokemonType):
@@ -31,29 +31,72 @@ class PokemonChart:
 
 def battle(attacker, defender, attack, defense):
 
-    typeChart = {
-    PokemonType.water: PokemonChart(effective=PokemonType.fire, notEffective=PokemonType.grass),
-    PokemonType.fire: PokemonChart(effective=PokemonType.grass, notEffective=PokemonType.water),
-    PokemonType.grass: PokemonChart(effective=PokemonType.water, notEffective=PokemonType.fire),
-    PokemonType.electric: PokemonChart(effective=PokemonType.water, notEffective=PokemonType.grass)
-    }
+    if attack <= 0 or attack > 100 or defense <= 0 or defense > 100:
+        print("El ataque o la dedensa contienen un valor incorrecto")
+        return None
+    
 
-    effectivity = 1.0
+    typeChart = {PokemonType.water:PokemonChart(effective=PokemonType.fire, notEffective=PokemonType.grass),
+                 PokemonType.fire:PokemonChart(effective=PokemonType.grass, notEffective=PokemonType.water),
+                 PokemonType.grass:PokemonChart(effective=PokemonType.water, notEffective=PokemonType.fire),
+                 PokemonType.electric:PokemonChart(effective=PokemonType.water, notEffective=PokemonType.grass)
+                 }
+    
+    effectivity = 1
 
-    if attacker == defender or typeChart[attacker].notEffective  == defender:
+    if attacker == defender or typeChart[attacker].notEffective == defender:
         effectivity = 0.5
         print("No es muy efectivo")
-    elif typeChart[attacker].effective  == defender:
+    elif typeChart[attacker].effective == defender:
         effectivity = 2.0
         print("Es súper efectivo")
     else:
         print("Es neutro")
-    
 
-    return 50 * attack / defense * effectivity
+    return 50 *  (attack / defense) * effectivity
 
-print(battle( PokemonType.water, PokemonType.fire, 50, 30))
+print(battle(PokemonType.water, PokemonType.fire, 50, 30))
 print(battle( PokemonType.water, PokemonType.fire, 101, -10))
 print(battle( PokemonType.fire, PokemonType.water, 50, 30))
 print(battle( PokemonType.fire, PokemonType.fire, 50, 30))
 print(battle( PokemonType.grass, PokemonType.electric, 30, 50))
+
+# class PokemonType(Enum):
+#     water = "Agua"
+#     fire = "Fuego"
+#     grass = "Planta"
+#     electric = "Electrico" 
+
+# class PokemonChart:
+#     def __init__(self, effective: PokemonType, notEffective: PokemonType):
+#         self.effective = effective
+#         self.notEffective = notEffective
+
+# def battle(attacker, defender, attack, defense):
+
+#     typeChart = {
+#     PokemonType.water: PokemonChart(effective=PokemonType.fire, notEffective=PokemonType.grass),
+#     PokemonType.fire: PokemonChart(effective=PokemonType.grass, notEffective=PokemonType.water),
+#     PokemonType.grass: PokemonChart(effective=PokemonType.water, notEffective=PokemonType.fire),
+#     PokemonType.electric: PokemonChart(effective=PokemonType.water, notEffective=PokemonType.grass)
+#     }
+
+#     effectivity = 1.0
+
+#     if attacker == defender or typeChart[attacker].notEffective  == defender:
+#         effectivity = 0.5
+#         print("No es muy efectivo")
+#     elif typeChart[attacker].effective  == defender:
+#         effectivity = 2.0
+#         print("Es súper efectivo")
+#     else:
+#         print("Es neutro")
+    
+
+#     return 50 * attack / defense * effectivity
+
+# print(battle( PokemonType.water, PokemonType.fire, 50, 30))
+# print(battle( PokemonType.water, PokemonType.fire, 101, -10))
+# print(battle( PokemonType.fire, PokemonType.water, 50, 30))
+# print(battle( PokemonType.fire, PokemonType.fire, 50, 30))
+# print(battle( PokemonType.grass, PokemonType.electric, 30, 50))
