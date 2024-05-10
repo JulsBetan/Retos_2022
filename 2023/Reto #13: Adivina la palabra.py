@@ -45,25 +45,50 @@ def get_masked(word):
 
     for x in positions:
         array[x] = '_'
-    return "".join(array)
+    return "".join(array), positions
+
+def solved(array):
+    if '_' not in array:
+        return True
+    else:
+        return False
 
 def start_game():
     word_list = get_list()
     word = get_word(word_list) 
-    masked_word = get_masked(word)
-       
-    attempts = 3
+    masked_word, index_array = get_masked(word)
+
+    masked_array = list(masked_word)
+    word_array = list(word)
+
+    print(f"La palabra a adivinar es: {masked_word}")
+
+    attempts = len(index_array)
 
     while attempts > 0:
-       answer = input("Ingresa un caracter: ") 
+       answer = input(f"Ingresa un caracter ({attempts} oportunidaded restantes): ") 
+       answer = unidecode(answer.lower())
+
+       if answer == word:
+           return True
+
        attempts -= 1
        
+       for index in index_array:    
+            if answer == word_array[index]:
+                masked_array[index] = answer
 
+       print(f"Resultado: {''.join(masked_array)}") 
 
-    return masked_word
+       if solved(masked_array) == True:
+            return True
+
+    print(f"Era: {word}")
+    return False
+
 
 def main():
-    print(start_game())
+    print("Haz adivinado!!" if start_game() else "Perdiste.")
 
 if __name__ == "__main__":
     main() 
