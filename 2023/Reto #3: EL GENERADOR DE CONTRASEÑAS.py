@@ -20,4 +20,4 @@ def gen_password(args):
 
     return password
 
-print(f"La contraseña generada es: {gen_password([1,0,1,0])}")
+print(f"La contraseña generada es: {gen_password([1,1,1,0])}")
