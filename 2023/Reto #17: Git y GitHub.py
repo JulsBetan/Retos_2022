@@ -19,40 +19,25 @@
 #  * Se permite utilizar librerías que nos faciliten esta tarea.
 #  * 
 #  */
+import os
+from github import Github
 
-import requests
-from datetime import datetime
+token = os.getenv('GITHUB_TOKEN')
 
-url = 'https://github.com/mouredev/retos-programacion-2023/commits'
+print(token)
 
-token = 'token'
+try:
+    g = Github(token)
+    # repo = g.get_repo("mouredev/retos-programacion-2023")
+    repo = g.get_repo("JulsBetan/bt-att-contraloria-backend")
 
-headers = {
-    'Authorization': f'token {token}',
-    'Accept': 'application/vnd.github.v3+json'
-}
+    commits = repo.get_commits()[:10]
 
-response = requests.get(url, headers=headers)
-
-if response.status_code == 200:
-    try:
-        commits = response.json()
-        for commit in commits:
-            hash_commit = commit['sha']
-            # author = commit['commit']['author']['name']
-            # message = commit['commit']['message']
-            # date = commit['commit']['author']['date']
-            # formatted_date = datetime.strptime(date, "%Y-%m-%dT%H:%M:%SZ")
-
-            print(f"Hash: {hash_commit}")
-            # print(f"Author: {author}")
-            # print(f"Message: {message}")
-            # print(f"Date: {formatted_date}")
-            # print("-" * 40)
-    except ValueError as e:
-        print("Error al decodificar la respuesta JSON:", e)
-        print("Respuesta no válida:", response.text[:1000])
-else:
-    print(f"Error: Unable to fetch commits (Status Code: {response.status_code})")
-    print("Response Headers:", response.headers)
-    print("Response Text:", response.text)
+    for i, commit in enumerate(commits):
+        sha = commit.sha[:7]
+        author = commit.commit.author.name
+        message = commit.commit.message
+        date = commit.commit.author.date.strftime("%d/%m/%Y %H:%M")
+        print(f"Commit {i+1} | {sha} | {author} | {message} | {date}")
+except Exception as e:
+    print(f"Ocurrió un error: {str(e)}")
