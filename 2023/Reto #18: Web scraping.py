@@ -69,7 +69,14 @@ if response.status_code == 200:
         else:
             print("No se encontró el div padre.")
     else:
-        print("No se encontró la sección de Agenda.")
-        
+        print("No se encontró la sección de Agenda.")  
 else:
     print(f'Error: {response.status_code}')
+
+
+blockquotes = BeautifulSoup(requests.get(
+    "https://holamundo.day").content, 'html.parser').find_all("blockquote")
+
+print(blockquotes)
+for blockquote in blockquotes[21:]:
+    print(blockquote.text)
