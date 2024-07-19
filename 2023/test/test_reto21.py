@@ -27,7 +27,7 @@ class TestFuncionesPrimo(unittest.TestCase):
     
     def test_primos(self):
         # Pruebas para la función primos
-        self.assertEqual(primos(14), [(3, 5), (5, 7), (11, 13), (17, 19)])
+        self.assertEqual(primos(14), [(3, 5), (5, 7), (11, 13)])
         self.assertEqual(primos(20), [(3, 5), (5, 7), (11, 13), (17, 19)])
         
         # Prueba para el rango menor a 5
