@@ -10,3 +10,14 @@
 #  * ║╚═╝║
 #  * ╚═══╝
 #  */
+
+def espiral(size):
+	print (f"La espiral tiene tamaño: {size}.")
+
+	if size < 5 :
+		raise ValueError("El tamaño mínimo de la espiral es 5. ")
+        
+size = int(input("Introduzca el tamaño de la espiral:"))
+espiral(size)
+
+	
