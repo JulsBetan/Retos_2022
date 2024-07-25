@@ -18,11 +18,8 @@ def espiral(size):
 		raise ValueError("El tamaño mínimo de la espiral es 5. ")
     
 	array = [list('#'*size) for _ in range(size)]    
-	print(array)
 	horizontal = True
 	positive = True
-	arrayX = []
-	arrayY = []
 	indX = 0
 	indY = 0
 	menorX = 0
@@ -41,12 +38,10 @@ def espiral(size):
 			if indY == mayorY and positive:
 				menorX += 1
 				char = '╗'
-				arrayX.append(indX)
 				horizontal = False
 			elif indY == menorY and not positive:
 				mayorX -= 1
 				char = '╚' 
-				arrayX.append(indX)
 				positive = False
 				horizontal = False
 			else:
@@ -60,13 +55,11 @@ def espiral(size):
 			if indX == mayorX and positive:
 				mayorY -= 1
 				char = '╝'
-				arrayY.append(indY)
 				horizontal = True
 				positive = False
 			elif indX == menorX and not positive:
 				menorY += 1
 				char = '╔' 
-				arrayY.append(indY)
 				positive = True
 				horizontal = True
 			else:
